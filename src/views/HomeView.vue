@@ -1,18 +1,29 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <div class="home d-flex flex-nowrap align-items-stretch">
+    <Sidebar />
+    <Player />
+    <Audio />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+import { defineComponent, defineAsyncComponent } from "vue";
 
 export default defineComponent({
-  name: 'HomeView',
+  name: "HomeView",
   components: {
-    HelloWorld,
+    Sidebar: defineAsyncComponent(() => import("@/components/SidebarView.vue")),
+    Player: defineAsyncComponent(() => import("@/components/PlayerView.vue")),
+    Audio: defineAsyncComponent(() => import("@/components/AudioView.vue")),
   },
 });
 </script>
+
+<style scoped>
+.home {
+  max-height: 100vh;
+  max-width: 100vw; /* ekranin tamamini gecmeyecek. */
+  height: 100vh;
+  width: 100vw;
+}
+</style>

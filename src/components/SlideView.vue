@@ -1,0 +1,1 @@
+<!-- kaydırma yerlerini yapacagimiz kisim !-->

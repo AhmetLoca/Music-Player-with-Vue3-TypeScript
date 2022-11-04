@@ -1,30 +1,24 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <div id="nav">
+    <!-- <router-view> bize views/HomeView'u veriyor. !-->
+    <router-view></router-view>
+  </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script lang="ts">
+import { defineComponent } from "vue";
 
-nav {
-  padding: 30px;
+export default defineComponent({});
+</script>
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+<style>
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-4-grid@3.4.0/css/grid.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@500&display=swap");
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Manrope", sans-serif;
 }
 </style>
