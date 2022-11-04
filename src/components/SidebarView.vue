@@ -3,6 +3,16 @@
   <div class="sidebar">
     <div class="py-2">
       <button @click="$store.dispatch('SelectFolder')">Select Folder</button>
+      <ul class="px-2">
+        <li
+          @click="$store.dispatch('playFile', index)"
+          class="py-3"
+          v-for="(value, index) in $store.state.files"
+          :key="value.name"
+        >
+          {{ value.name }}
+        </li>
+      </ul>
     </div>
   </div>
 </template>

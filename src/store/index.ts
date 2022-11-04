@@ -32,10 +32,20 @@ export default createStore({
     /* player'i open / close */
     toggleMuted(state) {
       state.muted = !state.muted;
+      if(state.muted){
+        state.audio.muted =true;
+      }else{
+        state.audio.muted =false;
+      }
     },
     /* oynuyor mu oynamiyor mu? Set it. */
     setPlaying(state, payload:boolean) {
       state.playing = payload;
+      if(payload){
+        state.audio.play();
+      }else{
+        state.audio.pause();
+      }
     },
     /* oynatmayi ac veya kapat */
     togglePlaying(state) {
@@ -77,7 +87,8 @@ export default createStore({
     payload'u verecegiz.
     */
     setUrl(state, payload:string) {
-      URL.revokeObjectURL
+      URL.revokeObjectURL(state.url);
+      state.audio.src=payload;
       state.url = payload;
     },
 
@@ -97,6 +108,8 @@ export default createStore({
       state.files = payload;
       /* files, FileSystemHandle dizisi. */
     },
+    /* reset fonksiyoun. Her şeyi resetler */
+   
   },
   actions: {
   /* 
@@ -114,8 +127,29 @@ export default createStore({
     }
     /* commit ile setFiles'i aldim ve files'e verdim. */
     commit('setFiles',files);
-    console.log(state.files);
+    /* commit ile tekrardan sarkiyi durdurmamiz lazim */
+    commit('setPlaying',false)
+  },
+    Reset({commit}){
+      commit('setPlaying', false);
+      commit('setSelected', false);
+      commit('setCurrentTime', 0);
+      commit('setDuration', 0);
+      commit('setUrl', '');
+      commit('setName', '');
+      commit('setFiles', []);
+},
+  /* tikladigimizda calismasi icin playFile diye bir özellik yapalim */
+  /*Burada bize state'i vuex geliyor. Payload bize bir index verecek. */
+  async playFile({commit, state},index:number) {
+    const fileHandle = state.files[index];
+    if(fileHandle.kind === 'file'){
+      const file = await fileHandle.getFile();
+      const url = URL.createObjectURL(file);
+      commit('setUrl',url); 
+      commit('setPlaying',true)
+      commit('setName',file.name);
+    }
   }
-
   }
 })
