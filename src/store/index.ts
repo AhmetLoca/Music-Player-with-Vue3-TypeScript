@@ -149,6 +149,8 @@ export default createStore({
       commit('setUrl',url); 
       commit('setPlaying',true)
       commit('setName',file.name);
+      commit('setCurrentTime',0);
+      commit('setDuration',0);
     }
   }
   }
